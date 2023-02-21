@@ -22,7 +22,7 @@ node{
         
         sh "docker push ${DOCKER_REPO}/${IMAGE_NAME}:${IMAGE_TAG}"
         sh "docker rmi ${DOCKER_REPO}/${IMAGE_NAME}:${IMAGE_TAG}"
-        sh "docker rmi ${DOCKER_REPO}/${IMAGE_NAME}:8"
+        
     }
     stage('Deploy to DockerPi'){
         sshagent(['dockerPihost']) {
