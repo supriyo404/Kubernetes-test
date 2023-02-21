@@ -24,5 +24,13 @@ node{
         sh "docker rmi ${DOCKER_REPO}/${IMAGE_NAME}:${IMAGE_TAG}"
         sh "docker rmi ${DOCKER_REPO}/${IMAGE_NAME}:8"
     }
+    stage('Deploy to DockerPi'){
+        sshagent(['dockerPihost']) {
+        sh "ssh -o StrictHostKeyChecking=no pi@192.168.1.15 docker rm -f dockertestcont || true"
+        sh "ssh -o StrictHostKeyChecking=no pi@192.168.1.15 docker run -d -p 8091:8080 --name dockertestcont ${DOCKER_REPO}/${IMAGE_NAME}:${IMAGE_TAG}"
+        
+        }
+        
+    }
     
 }
